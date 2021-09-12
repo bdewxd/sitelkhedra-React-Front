@@ -59,6 +59,7 @@ class Cartel extends React.Component{
      fetch('http//:localhost:5000/cartel')
      .then((result)=> result.json())
      .then((data)=> this.setState({items:data}));
+     console.log('wslat')
     }
 
     render(){

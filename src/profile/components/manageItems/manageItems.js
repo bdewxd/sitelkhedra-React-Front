@@ -3,6 +3,7 @@ import TableHead from './tableComponents/tableHead/tableHead.js';
 import Item from './tableComponents/item/item.js';
 import data from './tableComponents/item/data.js';
 import React from 'react';
+import { Link } from 'react-router-dom';
 class ManageItems extends React.Component {
     constructor(){
         super();
@@ -24,7 +25,7 @@ class ManageItems extends React.Component {
         return (
             <div>
                 <div className='addAndDeleteBtns'>
-                    <button className='btn btn-success'>add</button>
+                    <Link to='/UpdateItemBox'><button className='btn btn-success'>add</button></Link>
                 </div>
                 <table id="dtBasicExample" className="table table-striped table-bordered table-sm" cellSpacing="0" width="100%">
                     <thead>

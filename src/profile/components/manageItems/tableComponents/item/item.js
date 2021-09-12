@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 function Item(props) {
     let {price, name, stock, type, id} = props.item;
@@ -8,7 +9,7 @@ function Item(props) {
             <td>{price}</td>
             <td>{stock}</td>
             <td>{id}</td>
-            <td><button className='btn btn-info' onClick={props.update}>Update</button></td>
+            <td><Link to="/UpdateItemBox"><button className='btn btn-info' onClick={props.update}>Update</button></Link></td>
             <td><button className='btn btn-danger' onClick={props.delete}>delete</button></td>
         </tr>
     );

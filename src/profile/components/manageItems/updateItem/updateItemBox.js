@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import css from './updateItemBox.css';
 function UpdateItemBox(props) {
     return (
@@ -39,7 +40,7 @@ function UpdateItemBox(props) {
                             </div>
                             <div className="submit">
                                 <button className="btn btn-success" type="submit">Ajouter</button>
-                                <button className="btn btn-secondary" >Annuler</button>
+                                <Link to='/Profile'><button className="btn btn-secondary" >Annuler</button></Link>
                             </div>
                         </form>
                     </div>
