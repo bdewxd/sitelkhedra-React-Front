@@ -8,8 +8,8 @@ let profileArr = ["profile", "security", 'manage Items', "log out"];
 
 function Profile(props) {
     useEffect(()=>{
-        fetch('http://localhost:5000/profile', {credentials: "include"})
-        .then(result=> result.json())
+        fetch('http://localhost:5000/profile', {credentials: "include", withCredentials: true})
+        .then(result=> result)
         .then(data=> console.log(data))
         .catch(err => console.log(err));
     }, [])

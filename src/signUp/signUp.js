@@ -14,9 +14,12 @@ let SignUp = ()=>{
     function handlesubmit(event){
         event.preventDefault();
         fetch ("http://localhost:5000/SignUp", {
+            headers :{'Content-Type': 'Application/json',
+                      'Accept': 'Application/json',
+                      'Access-Control-Allow-Origin': 'https://localhost:5000'},
             method :"POST",
-            headers :{'Content-Type': 'application/json',
-                      'Accept': 'Application/json'},
+            credentials: "include",
+            withCredentials: true,
             body: JSON.stringify({
                 fullname,
                 email,
@@ -26,15 +29,16 @@ let SignUp = ()=>{
             })
         })
         .then(result =>{
-            return result.json();
-        })
-        .then((e)=>{
-            console.log(e);
-            if(!e.errMsg){
+            if(result.status == 201){
                 alert('your account was created');
                 setPath(<Redirect to='/Profile'/>);
             }else{
-                alert(e.errMsg)
+                return result.json();
+            }
+        })
+        .then((e)=>{
+            if(e){
+                alert(e.errMsg);
             }
         })
     }
