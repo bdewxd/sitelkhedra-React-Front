@@ -46,10 +46,10 @@ class App extends React.Component{
             <Route path="/Products">
               <Products />
             </Route>
-            <Route path="/Profile">
+            <Route exact path="/Profile">
               <Profile />
             </Route>
-            <Route path="/UpdateItemBox">
+            <Route path="/profile/manageItems">
               <UpdateItemBox />
             </Route>
           </Switch>

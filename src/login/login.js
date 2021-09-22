@@ -14,7 +14,9 @@ let Login = ()=>{
                 "accept": "application/json"
             },
             body: JSON.stringify({email, password})
-        }).catch(err=> console.log(err))
+        })
+        .then(e=> console.log(e))
+        .catch(err=> console.log(err))
     }
     return (
         <div>

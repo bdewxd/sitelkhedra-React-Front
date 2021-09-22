@@ -2,38 +2,40 @@ import css from './manageItems.css';
 import TableHead from './tableComponents/tableHead/tableHead.js';
 import Item from './tableComponents/item/item.js';
 import data from './tableComponents/item/data.js';
-import React from 'react';
 import { Link } from 'react-router-dom';
-class ManageItems extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            items : data
-        }
-        this.handleUpdate = this.handleUpdate.bind(this);
-    }
+import { useState, useEffect } from 'react';
+let ManageItems = (props)=>{
+    let [items, setItems] = useState([]);
+    useEffect(()=>{
+        fetch('http://localhost:5000/profile')
+        .then(result=> result.json())
+        .then(data=> setItems(data))
+        .catch(err => console.log(err));
+    }, [])
 
-    handleUpdate(id){
+    function handleUpdate(id){
         //redirect to l morba3 li kayupdatih diksa3t
     }
 
-    delete(){
-
+    function remove(name){
+        let newItems = items.filter((e, i)=>{
+            return name != e.name;
+        })
+        setItems(newItems);
+        fetch(`http://localhost:5000/profile/:${name}`, {'Content-Type': 'application/json',method : 'DELETE', body: JSON.stringify(name)})
     }
-    
-    render(){
         return (
             <div>
                 <div className='addAndDeleteBtns'>
-                    <Link to='/UpdateItemBox'><button className='btn btn-success'>add</button></Link>
+                    <Link to='/profile/manageItems'><button className='btn btn-success'>add</button></Link>
                 </div>
                 <table id="dtBasicExample" className="table table-striped table-bordered table-sm" cellSpacing="0" width="100%">
                     <thead>
                         <TableHead />
                     </thead>
                     <tbody>
-                        {this.state.items.map((e, i)=>{
-                            return <Item handleDelete={this.delete} handleUpdate={this.handleUpdate} item={e} key={i}/>
+                        {items.map((e, i)=>{
+                            return <Item handleDelete={remove} handleUpdate={handleUpdate} item={e} key={i}/>
                         })}
                     </tbody>
                     <tfoot>
@@ -42,7 +44,6 @@ class ManageItems extends React.Component {
                 </table>
             </div>
         );
-    }
 }
 
 export default ManageItems;

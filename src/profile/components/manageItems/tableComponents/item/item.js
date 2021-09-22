@@ -10,7 +10,7 @@ function Item(props) {
             <td>{stock}</td>
             <td>{id}</td>
             <td><Link to="/UpdateItemBox"><button className='btn btn-info' onClick={props.update}>Update</button></Link></td>
-            <td><button className='btn btn-danger' onClick={props.delete}>delete</button></td>
+            <td><button className='btn btn-danger' onClick={()=> props.handleDelete(name)}>delete</button></td>
         </tr>
     );
 }

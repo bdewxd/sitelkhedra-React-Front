@@ -1,6 +1,23 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import css from './updateItemBox.css';
 function UpdateItemBox(props) {
+    let [name, setName] = useState('');
+    let [price, setPrice] = useState('');
+    let [quantity, setQuantity] = useState('');
+    let [quantityBy, setQuantityBy] = useState('e');
+    let [type, setType] = useState('fruits');
+
+
+    function handleSubmit(e){
+        e.preventDefault();
+        fetch('http://localhost:5000/profile/manageItems', {
+            headers : {'Content-Type': 'application/json'},
+            method : 'POST',
+            body : JSON.stringify({name, price, quantity, type, quantityBy})
+        })
+    }
+
     return (
         <div>
             <div className='container container-fluid itemUpdaterBox'>
@@ -13,33 +30,44 @@ function UpdateItemBox(props) {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlFile1">Veuillez insérer une image de votre produit:</label>
-                                <input type="file" className="form-control-file" id="exampleFormControlFile1" />
+                                <input type="file" className="form-control-file" id="exampleFormControlFile1"/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlInput1">Nom</label>
-                                <input type="email" className="form-control" id="exampleFormControlInput1"  />
+                                <input type="text" value={name} className="form-control" id="exampleFormControlInput1" onChange={(e)=> setName(e.target.value)}  placeholder='veuillez insérer le nom' />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlSelect1">Type de Produit</label>
-                                <select className="form-control"  id="exampleFormControlSelect1">
-                                <option>--Choisir--</option>
-                                <option>fruits</option>
-                                <option>légumes</option>
-                                <option>herbes</option>
-                                <option>divers</option>
+                                <select value={type} onChange={(e)=> setType(e.target.value)} className="form-control"  id="exampleFormControlSelect1">
+                                    <option>fruits</option>
+                                    <option>légumes</option>
+                                    <option>herbes</option>
+                                    <option>divers</option>
                                 </select>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlInput2">Prix</label>
-                                <input type="email" className="form-control" id="exampleFormControlInput2"  />
+                                <input type="number" value={price} className="form-control" id="exampleFormControlInput2"  onChange={(e)=> setPrice(e.target.value)}  placeholder='veuillez insérer le prix' />
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" onChange={(e)=> setQuantityBy(e.target.value)} type="radio" name="quantityBy" value={quantityBy} checked />
+                                <label className="form-check-label" htmlFor="quantity">
+                                    par e
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" onChange={(e)=> setQuantityBy(e.target.value)} type="radio" name="quantityBy" value={quantityBy} />
+                                <label className="form-check-label" htmlFor="quantity">
+                                    par Kg
+                                </label>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleFormControlInput3">Quantité par Kg</label>
-                                <input type="email" className="form-control" id="exampleFormControlInput3"  />
+                                <input type="number" value={quantity} className="form-control" id="exampleFormControlInput3"  onChange={(e)=> setQuantity(e.target.value)}  placeholder='veuillez insérer le quantité en KG' />
                             </div>
                             <div className="submit">
-                                <button className="btn btn-success" type="submit">Ajouter</button>
+                                <button className="btn btn-success" onClick={handleSubmit} type="submit">Ajouter</button>
                                 <Link to='/Profile'><button className="btn btn-secondary" >Annuler</button></Link>
                             </div>
                         </form>

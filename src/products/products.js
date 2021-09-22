@@ -2,8 +2,10 @@ import CategoryDiv from './components/categoryDiv/categoryDiv.js';
 import ProductsList from './components/productsList/productsList.js';
 import Carrousel from '../Home/components/carousel/ImagesCarrousel.js';
 import css from './products.css';
-let numberOfProducts = 81;
-let products = (props)=>{
+import { useState } from 'react';
+let k = css;
+let Products = (props)=>{
+    let [numberOfProducts, setnumberOfProducts] = useState(0);
     return (
         <div className='products'>
             <div>
@@ -14,10 +16,10 @@ let products = (props)=>{
                     il y'a {numberOfProducts} produits:
                     <CategoryDiv />
                 </div>
-                <ProductsList />
+                <ProductsList handleNumber={setnumberOfProducts}/>
             </div>
         </div>
     );
 }
 
-export default products;
+export default Products;

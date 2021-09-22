@@ -10,6 +10,7 @@ let SignUp = ()=>{
     let [password,setPassword] = useState("");
     let [repeatedPass,setRepeatedPass] = useState("");
     let [path, setPath] = useState('');
+    let [errs, setErrs] = useState([]);
   
     function handlesubmit(event){
         event.preventDefault();
@@ -31,14 +32,14 @@ let SignUp = ()=>{
         .then(result =>{
             if(result.status == 201){
                 alert('your account was created');
-                setPath(<Redirect to='/Profile'/>);
+                // setPath(<Redirect to='/Profile'/>);
             }else{
                 return result.json();
             }
         })
         .then((e)=>{
             if(e){
-                alert(e.errMsg);
+                setErrs(e);
             }
         })
     }
@@ -48,7 +49,11 @@ let SignUp = ()=>{
             <div className='article-signUp'>
                 <article className="card-body mx-auto" style={{maxWidth: '400px'}}>
                     <h4 className="card-title mt-3 text-center">Create Account</h4>
-                    <p className="text-center">Get started with your free account</p>
+                     {errs.map((e, i)=>{
+                         return <div className="alert alert-danger" key={i} role="alert">
+                                    {e.errMsg}
+                                </div>
+                     })}
                     <form onSubmit={handlesubmit}>
                         <div className="form-group input-group">
                             <div className="input-group-prepend">
