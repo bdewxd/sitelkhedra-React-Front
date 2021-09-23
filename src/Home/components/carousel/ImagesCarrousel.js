@@ -1,7 +1,7 @@
 import homepics from './images/images.js';
 import style from "./carrousel.css";
 import Arrows from './arrows.js';
-
+let k = style;
 let Carrousel = ()=>{
     let acab = "active";
     let crem = "carousel-Example-Controls";

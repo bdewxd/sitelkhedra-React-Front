@@ -1,8 +1,15 @@
 import css from "./navbar.css";
 import {Link} from "react-router-dom";
-let Navbar = ()=>{
-    let txt = [['Products', 'Products'],  ['Cartel','Cartel'] ,['About us','AboutUs'], ['Login','Login'],
-     ['SignUp','SignUp']]; 
+import { Status } from './App.js';
+import { useContext, useState } from "react";
+import logging from './logout.js';
+let Navbar = (props)=>{
+    let context = useContext(Status);
+    let [links, setLinks] = useState('login');
+    context.setNavLinks = setLinks;
+    let l = '';
+    let txt = [['Products', 'Products', ()=>{l=2}],  ['Cartel','Cartel', ()=>{l=2}] ,['About us','AboutUs', ()=>{l=2}], [links,'Login', ()=>{setLinks('Login');logging(links)}],
+     ['SignUp','SignUp', ()=>{l=2}]];
     return (
         <div>
              <nav className="navbar navbar-expand-lg navbar-light our-nav">
@@ -15,7 +22,7 @@ let Navbar = ()=>{
                 {
                         txt.map((e,i)=>{
                             return <Link to={`/${e[1]}`} className="nav-item nav-link links" key={i}>
-                                <div className="list">{e[0]}</div></Link>
+                                <div className="list" onClick={e[2]}>{e[0]}</div></Link>
                         })
                     }
                 </div>

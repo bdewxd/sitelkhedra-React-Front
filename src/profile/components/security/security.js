@@ -5,7 +5,8 @@ class Security extends React.Component {
         super();
         this.state ={
             email:"joshua@meurt.ez",
-            password:"1715ohmeurt"    
+            password:"1715ohmeurt",
+            password2: '' 
         }
         this.setEmail = this.setEmail.bind(this);
         this.setPassword=this.setPassword.bind(this);
@@ -15,6 +16,9 @@ class Security extends React.Component {
     }
     setPassword(event){
         this.setState({password : event.target.value});
+    }
+    setPassword2(event){
+        this.setState({password2 : event.target.value});
     }
 
     
@@ -32,6 +36,11 @@ class Security extends React.Component {
                         <label htmlFor="inputPassword">Password</label>
                         <input type="password" class="form-control" id="inputPassword" onChange={this.setPassword} maxLength="20"
                             value={this.state.password} />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label htmlFor="inputPassword">Password</label>
+                        <input type="password" class="form-control" id="inputPassword2" onChange={this.setPassword2} maxLength="20"
+                            value={this.state.password2} />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Update</button>

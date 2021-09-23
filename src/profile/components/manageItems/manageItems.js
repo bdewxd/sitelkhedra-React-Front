@@ -4,10 +4,10 @@ import Item from './tableComponents/item/item.js';
 import data from './tableComponents/item/data.js';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-let ManageItems = (props)=>{
+let ManageItems = ()=>{
     let [items, setItems] = useState([]);
     useEffect(()=>{
-        fetch('http://localhost:5000/profile')
+        fetch('http://localhost:5000/api/items', {credentials: 'include', withCredentials: true})
         .then(result=> result.json())
         .then(data=> setItems(data))
         .catch(err => console.log(err));
@@ -34,9 +34,9 @@ let ManageItems = (props)=>{
                         <TableHead />
                     </thead>
                     <tbody>
-                        {items.map((e, i)=>{
+                        {items.length ? items.map((e, i)=>{
                             return <Item handleDelete={remove} handleUpdate={handleUpdate} item={e} key={i}/>
-                        })}
+                        }): undefined}
                     </tbody>
                     <tfoot>
                         <TableHead />

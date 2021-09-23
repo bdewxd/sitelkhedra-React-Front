@@ -22,10 +22,9 @@ let Login = ()=>{
             if(res.status == 404){
                 res.json().then(({errMsg}) => setErrMsg(errMsg));
             }else{
-                setUrl('profile');
+                setUrl('/profile');
             }
         })
-        
         .catch(err=> console.log(err))
     }
     if(url){

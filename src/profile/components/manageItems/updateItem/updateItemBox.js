@@ -1,13 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import css from './updateItemBox.css';
+import { Redirect } from 'react-router-dom';
 function UpdateItemBox(props) {
     let [name, setName] = useState('');
     let [price, setPrice] = useState('');
     let [quantity, setQuantity] = useState('');
     let [quantityBy, setQuantityBy] = useState('e');
     let [type, setType] = useState('fruits');
+    let [url, setUrl] = useState('');
 
+    useEffect(()=>{
+        fetch('http://localhost:5000/profile/manageItems', {credentials: 'include', withCredentials: true})
+        .then(res=> res.json())
+        .then(res=> {
+            if(!res.approved){
+                setUrl(res.url);
+            }
+        })
+    }, [url]);
 
     function handleSubmit(e){
         e.preventDefault();
@@ -19,7 +30,7 @@ function UpdateItemBox(props) {
     }
 
     return (
-        <div>
+        <div>{url ? <Redirect to={url} /> : 
             <div className='container container-fluid itemUpdaterBox'>
                 <div className="child">
                     <div>
@@ -73,7 +84,7 @@ function UpdateItemBox(props) {
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 }

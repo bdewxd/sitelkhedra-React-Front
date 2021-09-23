@@ -1,9 +1,7 @@
-import React from 'react';
 import Navbar from './navbar';
-import css from './App.css'
+import css from './App.css';
 import Home from './Home/home';
 import SignUp from './signUp/signUp.js';
-import login from './login/login.js';
 import Footer from './footer';
 import AboutUs from './aboutUs/aboutUs.js';
 import Cartel from './cartel/cartel.js';
@@ -12,20 +10,14 @@ import Profile from './profile/profile.js';
 import UpdateItemBox from './profile/components/manageItems/updateItem/updateItemBox';
 import {BrowserRouter as Router , Route , Switch } from 'react-router-dom';
 import Login from './login/login.js';
+import { createContext } from 'react/cjs/react.development';
+export let Status = createContext();
 
-class App extends React.Component{
-  constructor(){
-    super();
-    this.state = {
-
-    }
-  }
-  
-
-  render(){
+let App = ()=> {
     return (
-      <div id="app-container">
-        <Router>
+    <div id="app-container">
+      <Router>
+        <Status.Provider value={{txt: 'Login', setNavLinks: ()=> {}}}>
           <Navbar />
           <Switch >
             <Route exact path ="/">
@@ -54,9 +46,9 @@ class App extends React.Component{
             </Route>
           </Switch>
           <Footer />
-        </Router >
-      </div>
-    );
-  }
+        </Status.Provider>
+      </Router>
+    </div>
+  );
 }
 export default App; 
