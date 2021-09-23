@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 let ManageItems = ()=>{
     let [items, setItems] = useState([]);
     useEffect(()=>{
-        fetch('http://localhost:5000/api/items', {credentials: 'include', withCredentials: true})
+        fetch('http://localhost:5000/profile/displayItems', {credentials: 'include', withCredentials: true})
         .then(result=> result.json())
         .then(data=> setItems(data))
         .catch(err => console.log(err));
