@@ -10,16 +10,51 @@ import Profile from './profile/profile.js';
 import UpdateItemBox from './profile/components/manageItems/updateItem/updateItemBox';
 import {BrowserRouter as Router , Route , Switch } from 'react-router-dom';
 import Login from './login/login.js';
+
+
 import { createContext } from 'react/cjs/react.development';
+import PublicRoutes from './routesHandling/publicRoutes';
+import PrivateRoutes from './routesHandling/privateRoutes';
+import ProtectedRoutes from './routesHandling/protectedRoutes';
 export let Status = createContext();
 
 let App = ()=> {
+  let isAuthenticated = true;
     return (
     <div id="app-container">
       <Router>
         <Status.Provider value={{txt: 'Login', setNavLinks: ()=> {}}}>
           <Navbar />
-          <Switch >
+          <Switch>
+              <PublicRoutes path='/login' isAuthenticated={isAuthenticated}>
+                <Login />
+              </PublicRoutes>
+
+              <PublicRoutes path='/signUp' isAuthenticated={isAuthenticated}>
+                <SignUp />
+              </PublicRoutes>
+
+              <PublicRoutes path='/Products' isAuthenticated={isAuthenticated}>
+                <Products />
+              </PublicRoutes>
+
+              <PublicRoutes path='/aboutUs' isAuthenticated={isAuthenticated}>
+                <AboutUs />
+              </PublicRoutes>
+
+
+              <PrivateRoutes path='/' isAuthenticated={isAuthenticated}>
+                <ProtectedRoutes />
+              </PrivateRoutes>
+          </Switch>
+
+
+
+
+
+
+
+          {/* <Switch >
             <Route exact path ="/">
               <Home />
             </Route>
@@ -44,7 +79,7 @@ let App = ()=> {
             <Route path="/profile/manageItems">
               <UpdateItemBox />
             </Route>
-          </Switch>
+          </Switch> */}
           <Footer />
         </Status.Provider>
       </Router>
